@@ -1,0 +1,88 @@
+body{
+   
+    background-image: url("./sea-mountains-horizon-evening.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+   background-attachment: fixed;  
+   justify-content: center;
+   align-items: center; 
+   display: flex; 
+}
+
+.gradient-box{
+    height: 700px;
+    
+   background: linear-gradient(to right , rgba(255, 254, 254, 0.466) ,rgba(255, 254, 254, 0.466));
+background-position: center;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+}
+
+.site h5{
+  
+    color: aliceblue;
+    font-size:60px;
+    margin-top: 3px;   
+}  
+
+.gradient-box{
+    padding: 20px;
+}
+
+.gradient-box h2{
+    align-items: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background-color: rgb(236, 196, 16);
+    border-radius: 10px;
+    height: 30px;   
+}
+
+.gradient-box p{
+    color: rgb(0, 0, 0);
+}
+.gradient-box input{
+    height: 40px;
+    background: transparent;
+
+}
+::placeholder{
+    color: rgb(13, 14, 15);
+}
+.gradient-box select{
+    height: 50px;
+    align-content: center;
+    background: transparent;
+    padding: 10px;
+   
+}
+.gradient-box span{
+    color: red;
+}
+
+.submit{
+    height: 40px;
+}
+.submit:hover{
+    background-color: rgb(255, 196, 0);
+
+}
+
+@media  screen and(max-width: 768px) {
+    body{
+        background-size: contain;
+        
+  
+    }
+    .main{
+       height:auto;
+       width: 50%;
+    }
+    .gradient-box{
+        height: auto;
+        width:100%;
+    }
+    
+}
+

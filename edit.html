@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #gradient-box{
+            background-color: rgb(158, 202, 195);
+            height: 100%;
+            width: 300px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 100px;
+        margin-left: 800px;
+        margin-bottom: 100px;
+        display: block;
+        align-items: center;
+       padding: 70px;
+        }
+        #emp{
+            font-size: x-large;
+            align-items: center;
+            margin-left: 850px;
+        }
+        
+        #save:hover{
+            background-color: rgb(214, 161, 16);
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="emp"> <h1> Employee Data</h1></div>
+    <div id="gradient-box">
+    
+       
+        <p> ID</p>
+        <input type="text" name="id" id="userid"  placeholder="Enter ID" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 300px;">
+        <span class="error" id="id_error"></span>
+
+        <p> Name </p>
+        <input type="text" name="username" id="name" placeholder="Enter Name" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 300px;">
+        <span class="error" id="name_error"></span>
+
+        <p> Age</p>
+        <input type="text" name="age" id="age" placeholder="Enter age" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 300px;">
+        <span class="error" id="age_error"></span>
+
+    
+        <p> Designation </p>
+        <select name="Designation" id="designation" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 315px;">
+            <option disabled hidden selected >Select One</option>
+            <option value="Developer">Developer</option>
+            <option value="Manager">Manager</option>
+            <option value="Tester">Tester</option>
+            <option value="HR">HR</option>
+            </select>
+            <span class="error" id="des_error"></span>
+
+        <p>URL</p>
+        <input type="text" name="url" id="url" placeholder="Enter url" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 300px;">
+        <span class="error" id="url_error"></span>
+
+        <p> Gender</p>
+        <select name="gender" id="gender" style="border: 1px solid #ccc; padding: 5px; font-size: 16px; width: 315px;">
+            <option disabled hidden selected>Select One</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+        <span class="error" id="gender_error"></span><br>
+        
+            <button class="save" id="save" onclick="SaveEdits()" style="border: 1px solid #ccc;  padding: 5px; font-size: 16px; width: 315px;">Save</button>
+        </div>
+
+
+
+        <script>
+            const rowData = JSON.parse(localStorage.getItem('editRowData')) || {};
+            const preid=rowData.userid ;
+            document.getElementById('userid').value=rowData.userid ;
+            document.getElementById('name').value=rowData.name ;
+            document.getElementById('age').value=rowData.age ;
+            document.getElementById('designation').value=rowData.designation ;
+            document.getElementById('url').value=rowData.url ;
+            document.getElementById('gender').value=rowData.gender ;
+
+
+            function SaveEdits(){
+                const userid = document.getElementById("userid").value;
+                const name = document.getElementById("name").value;
+                const age = document.getElementById("age").value;
+                const url = document.getElementById("url").value;
+                const designation = document.getElementById("designation").value;
+                const gender = document.getElementById("gender").value;
+
+
+   
+              document.getElementById("id_error").innerText = "";
+             document.getElementById("name_error").innerText = "";
+             document.getElementById("age_error").innerText = "";
+            document.getElementById("url_error").innerText = "";
+            document.getElementById("des_error").innerText = "";
+
+   let isValid = true; // Flag 
+   const allids = JSON.parse(localStorage.getItem('enterIDs'));
+
+    if (allids.some(item => item == userid && item!=preid)) {
+        document.getElementById("id_error").innerHTML = "This ID is already exist";
+        isValid = false;
+  }
+   if (userid.trim() === "") {
+       document.getElementById("id_error").innerText = "ID is required";
+       isValid = false;
+   } else if (!isValidId(userid)) {
+       document.getElementById("id_error").innerText =
+           "ID must contain only digits.";
+       isValid = false;
+   }
+
+   if (name.trim() === "") {
+       document.getElementById("name_error").innerText = "Name is required";
+       isValid = false;
+   } else if (!isValidName(name)) {
+       document.getElementById("name_error").innerText =
+           "Name must contain only alphabets";
+       isValid = false;
+   }
+
+   if (age.trim() === "") {
+      document.getElementById("age_error").innerText = "Age is required";
+      isValid = false;
+  } else if (!isValidAge(age)) {
+      document.getElementById("age_error").innerText =
+          "Enter a valid age (between 18 and 60).";
+      isValid = false;
+  }
+
+   if (url.trim() === "") {
+       document.getElementById("url_error").innerText = "URL is required";
+       isValid = false;
+   } else if (!isValidUrl(url)) {
+       document.getElementById("url_error").innerText = "Enter a valid URL";
+       isValid = false;
+   }
+
+   if (designation.trim() === "") {
+       document.getElementById("des_error").innerText = "Designation is required";
+       isValid = false;
+   }
+
+  
+        // If all validations pass, save data to local storage
+        if (isValid) {
+        const dataObj = {
+            userid: userid,
+            name: name,
+            age: age,
+            url: url,
+            designation: designation,
+            gender: gender
+        };
+
+       
+        const dataStored = JSON.parse(localStorage.getItem("userData")) || [];
+
+     
+        const editedIndex = dataStored.findIndex(item => item.userid === rowData.userid);
+
+       
+        dataStored[editedIndex] = dataObj;
+
+      
+        localStorage.setItem("userData", JSON.stringify(dataStored));
+
+        console.log("Data updated in local storage:", dataObj);
+
+
+        // Redirect the user to another page
+        window.location.href = "table.html";
+    } else {
+        console.log("Form submission prevented. Please check the input fields.");
+    }
+}
+
+
+
+ 
+ 
+
+function isValidId(userid){
+   //Expression to check is id contain only numbers.
+   const idRegx = /^\d+$/;
+   return idRegx.test(userid);
+}
+
+function isValidName(name){
+   // Expression to check is name contain only alphabets.
+   const nameRegx = /^[a-zA-Z\s]+$/;
+   return nameRegx.test(name);
+}
+
+function isValidAge(age) {
+   const ageNumber = parseInt(age);
+   return !isNaN(ageNumber) && ageNumber >= 18 && ageNumber <= 60;
+}
+
+function isValidUrl(url){
+   //Expression to check is URL correct
+   const urlRegx = /^(ftp|http|https):\/\/[^ "]+$/;
+   return urlRegx.test(url);
+}
+
+            
+        </script>
+       
+</body>
+</html>

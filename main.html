@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Portal</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="main">
+    <script src="./javas.js"></script>
+    <div class="site">
+        <h5>Employee Portal</h5>
+    </div> 
+   
+    <div class="gradient-box">
+    
+        <h2> Employee Data</h2>
+        <p> ID</p>
+        <input type="text" name="id" id="userid"  placeholder="Enter ID">
+        <span class="error" id="id_error"></span>
+
+        <p> Name </p>
+        <input type="text" name="username" id="name" placeholder="Enter Name">
+        <span class="error" id="name_error"></span>
+
+        <p> Age</p>
+        <input type="text" name="age" id="age" placeholder="Enter age">
+        <span class="error" id="age_error"></span>
+
+    
+        <p> Designation </p>
+        <select name="Designation" id="designation">
+            <option disabled hidden selected >Select One</option>
+            <option value="Developer">Developer</option>
+            <option value="Manager">Manager</option>
+            <option value="Tester">Tester</option>
+            <option value="HR">HR</option>
+            </select>
+            <span class="error" id="des_error"></span>
+
+        <p>URL</p>
+        <input type="text" name="url" id="url" placeholder="Enter url">
+        <span class="error" id="url_error"></span>
+
+        <p> Gender</p>
+        <select name="gender" id="gender">
+            <option disabled hidden selected>Select One</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+        <span class="error" id="gender_error"></span>
+        
+            <button class="submit" onclick="addData()">Submit</button>
+        </div>
+</div>
+
+</body>
+</html>
